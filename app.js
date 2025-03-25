@@ -1,78 +1,117 @@
+/* ------------------ Navigation ------------------ */
+let cameraStream = null;
 
-const myInterval = setInterval(myTimer, 1000);
+function navigateTo(pageId) {
+  // Hide all pages.
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+  // Show target page.
+  document.getElementById(pageId).classList.add('active');
 
-function myTimer() {
-    const date = new Date();
-    document.getElementById("Time").innerHTML = date.toLocaleTimeString();
+  // If leaving the camera screen, stop the stream.
+  if (pageId !== 'cameraScreen' && cameraStream !== null) {
+    stopCamera();
+  }
 }
 
-const myInterval1 = setInterval(myTimer1, 1000);
-function myTimer1() {
-    const date = new Date();
-    document.getElementById("Time1").innerHTML = date.toLocaleTimeString();
+/* ------------------ Lock Screen Functionality ------------------ */
+document.getElementById('unlockBtn').addEventListener('click', () => {
+  const pwd = document.getElementById('passwordInput').value.trim();
+  if (pwd) {
+    navigateTo('homeScreen');
+  } else {
+    showToast('Please enter a valid password.');
+  }
+});
+
+/* ------------------ Camera Functionality ------------------ */
+document.getElementById('openCameraBtn').addEventListener('click', () => {
+  navigateTo('cameraScreen');
+  startCamera();
+});
+document.getElementById('stopCameraBtn').addEventListener('click', stopCamera);
+
+function startCamera() {
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        cameraStream = stream;
+        const videoEl = document.getElementById('cameraPreview');
+        videoEl.srcObject = stream;
+        videoEl.play();
+      })
+      .catch(err => {
+        console.error('Error accessing the camera:', err);
+        showToast('Unable to access the camera.');
+      });
+  } else {
+    showToast('Camera not supported on this device.');
+  }
 }
 
-function LockscreenChance() {
-    document.getElementById("Time").style.display = "none"
-    document.getElementById("Lock").style.display = "none"
-    document.getElementById("pin").style.display = "block"
+function stopCamera() {
+  if (cameraStream) {
+    cameraStream.getTracks().forEach(track => track.stop());
+    cameraStream = null;
+  }
+  const videoEl = document.getElementById('cameraPreview');
+  videoEl.pause();
+  videoEl.srcObject = null;
 }
 
-function passwordEnter() {
+/* ------------------ Volume Controls ------------------ */
+let volume = 50; // initial volume percentage
 
-    var passwordTimes = 0
-    document.getElementById("LockscreenChance").style.display = "none"
-    if (document.getElementById("password").value == "") {
-        document.getElementById("passwordAlert").style.color = "red"
-        document.getElementById("passwordAlert").innerHTML = "Enter Password Please"
-        document.getElementById("password").style.borderColor = "red"
-        document.getElementById("password").style.borderRadius = "10px"
-        document.getElementById("LockscreenChance").style.display = "block"
-    } 
+function updateVolumeDisplay() {
+  document.getElementById('volumeDisplay').innerText = "Volume: " + volume + "%";
 }
 
-function Contacts() {
-    document.getElementById("lower").style.display = "none";
-    document.getElementById("ContactsList").style.display = "block";
-}
-function Messages() {
-    document.getElementById("lower").style.display = "none";
-}
-function Gallary() {
-    document.getElementById("lower").style.display = "none";
-}
-function Chrome() {
-    document.getElementById("lower").style.display = "none";
-}
-function Calls() {
-    document.getElementById("lower").style.display = "none";
+function increaseVolume() {
+  if (volume < 100) {
+    volume += 5;
+    if (volume > 100) volume = 100;
+    updateVolumeDisplay();
+  }
 }
 
-
-function mainBtn(){
-    
+function decreaseVolume() {
+  if (volume > 0) {
+    volume -= 5;
+    if (volume < 0) volume = 0;
+    updateVolumeDisplay();
+  }
 }
 
-function Contacts() { 
-    alert("You ain't gat no conatcts Fool !! ")
- }
-
-
- function Messages() { 
-    alert("Ain't No body Cares about your ass")
- }
-
- 
-function Phone() { 
-    alert("You too broke to afford airtime bitch !!")
+/* ------------------ Battery Level ------------------ */
+function updateBatteryUI(level) {
+  document.querySelectorAll('.batteryDisplay').forEach(el => {
+    el.innerText = level + '%';
+  });
 }
 
-
-function GoogleStore() { 
-    alert("You have registerd your email address")
+if (navigator.getBattery) {
+  navigator.getBattery().then(function(battery) {
+    function updateAllBattery() {
+      const level = Math.round(battery.level * 100);
+      updateBatteryUI(level);
+    }
+    updateAllBattery();
+    battery.addEventListener('levelchange', updateAllBattery);
+  }).catch(function(err) {
+    console.error("Battery API error:", err);
+    updateBatteryUI("N/A");
+  });
+} else {
+  updateBatteryUI("N/A");
 }
 
-
-function Alarm() { 
-    alert("Dont waste my time, You aint going nowhere tomorrow")
+/* ------------------ Toast Notifications ------------------ */
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.innerText = message;
+  toast.style.display = "block";
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 3000);
 }
