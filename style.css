@@ -1,227 +1,179 @@
-* {
-    text-align: center;
-    overflow: hidden;
-}
-
+/* General Styles */
 body {
-    display: flex;
-    text-align: center;
-    justify-content: center;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #333;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
 }
 
-body .cell {
-    background-color: black;
-    width: 300px;
-    height: 600px;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    text-align: center;
+/* Phone Container */
+#appContainer {
+  width: 300px;
+  height: 600px;
+  background-color: black;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
 }
 
-body .cell .screen {
-    /* background-image: url(./Original/screen.jpg); */
-    width: 290px;
-    height: 570px;
-    position: relative;
-    top: 16px;
-    border-radius: 5px;
-    background-position: center;
+/* Navigation (outside container) */
+nav {
+  margin: 10px 0;
+  text-align: center;
 }
 
-body .cell .screen .camera {
-    background-color: black;
-    width: 10px;
-    height: 10px;
-    border-radius: 20px;
-    position: relative;
-    left: 135px;
-    top: 5px;
-    border: 1px solid white;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+nav button {
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  background-color: #555;
+  border: none;
+  border-radius: 5px;
+  color: white;
 }
 
-body .cell .screen .nav {
-    position: fixed;
-    top: 580px;
-    display: flex;
-    padding: 0 10px;
-    align-items: center;
-    z-index: 100;
-
+/* Volume Controls Overlay */
+#volumeControls {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 5px;
 }
 
-
-body .cell .screen .nav button {
-    margin: 0 37px;
+#volumeControls button {
+  padding: 5px;
+  margin: 2px;
+  font-size: 12px;
+  background-color: #777;
+  border: none;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
-body .cell .screen .innerscreen {
-    position: relative;
-    top: -10px;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(2, 2, 2);
-    color: white;
-    border-radius: 10px;
-    z-index: 2;
+#volumeDisplay {
+  font-size: 12px;
+  margin: 2px;
+  color: #ff0;
 }
 
-.top {
-    display: flex;
-    justify-content: space-around;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+/* Toast Notifications */
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  display: none;
+  z-index: 1000;
 }
 
-.Time {
-    font-size: 40px;
+/* Page Styles */
+.page {
+  display: none;
+  padding: 20px;
+  text-align: center;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-.pin {
-    display: none;
+.active {
+  display: block;
 }
 
-.passwordEnter {
-    padding: 5px;
-    border: none;
-    background-color: green;
-    color: white;
+/* Header for Pages */
+.header {
+  font-size: 14px;
+  margin-bottom: 15px;
 }
 
-.landingPage {
-    position: relative;
-    top: -10px;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    border-radius: 10px;
-    z-index: 2;
+.header .batteryDisplay {
+  font-weight: bold;
+  color: #ff0;
 }
 
-.landingPage .landingPageTime {
-    position: relative;
-    left: -30px;
+/* Lock Screen Styles */
+#lockScreen input[type="password"] {
+  padding: 8px;
+  width: 80%;
+  margin-bottom: 10px;
 }
 
-.lower {
-    position: relative;
-    top: 475px;
-    display: flex;
-    justify-content: space-around;
+#lockScreen button {
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: green;
+  border: none;
+  border-radius: 5px;
+  color: white;
 }
 
-.ContactsList {
-    background-color: rgb(247, 175, 188);
-    display: none;
+/* Home Screen Styles */
+#homeScreen button {
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: #0088cc;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  margin-top: 15px;
 }
 
-.ContactsListFaceTop {
-    background-color: rgb(245, 217, 222);
-    color: rgb(0, 0, 0);
-    display: flex;
-    justify-content: flex-start;
-    padding: 4px;
+#homeScreen .apps {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
-.ContactsListFaceTop span:hover {
-    background-color: rgb(251, 185, 185);
-    cursor: pointer;
-
+#homeScreen .appIcon {
+  width: 80px;
+  height: 80px;
+  background-color: #555;
+  margin: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
 }
 
-.ContactsListFaceTopAdd,
-.ContactsListFaceTopOption {
-    position: relative;
-    left: 190px;
-    margin: 0 10px;
+#homeScreen .appIcon:hover {
+  background-color: #777;
 }
 
-.ContactsPic {
-    width: 25px;
-    height: 25px;
-    border-radius: 30px;
-    margin: 0 10PX;
-    background-color: rgb(17, 227, 242);
+/* Camera Screen Styles */
+#cameraPreview {
+  width: 100%;
+  max-height: 300px;
+  background: #444;
+  margin-bottom: 10px;
 }
 
-.ContactsName {
-    font-size: medium;
-}
-
-.contact {
-    display: flex;
-    justify-content: flex-start;
-    animation: land .5s linear ease-in .5s;
-    transition: .5s;
-}
-
-hr {
-    width: 70%;
-}
-
-@keyframes land {
-    from {
-        scale: .2;
-    }
-
-    to {
-        scale: 1;
-    }
-}
-
-#Contacts {
-    width: 100%;
-    height: 100%;
-}
-
-#Messages {
-    width: 100%;
-    height: 100%;
-}
-
-#Gallary {
-    width: 100%;
-    height: 100%;
-}
-
-#Chrome {
-    width: 100%;
-    height: 100%;
-}
-
-#Calls {
-    width: 100%;
-    height: 100%;
-}
-
-#Lock {
-    justify-content: space-around;
-}
-
-#LockPhone {
-    position: absolute;
-    width: 40px;
-    left: 20px;
-    display: flex;
-    bottom: 40px;
-}
-
-
-#LockCamera {
-    position: absolute;
-    right: 10px;
-    display: flex;
-    bottom: 20px;
-}
-
-.LandApp {
-    width: 40px;
-}
-
-.LandApp:hover {
-    box-shadow: 0 0 20px black;
+#cameraScreen button {
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: #cc0000;
+  border: none;
+  border-radius: 5px;
+  color: white;
 }
