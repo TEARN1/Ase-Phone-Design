@@ -1,131 +1,69 @@
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulated Phone Interface</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-    <div>
-        <div style="background-color: rgb(219, 219, 219); width: 50px; height: 50px; border-radius:10px; margin: 50px;"
-            class="BackAndFront" onclick="alert('You Cant Flip the phone for now, the back is still under construction')">
-        </div>
+  <!-- Phone Container -->
+  <div id="appContainer">
+    <!-- Volume Controls (always visible overlay) -->
+    <div id="volumeControls">
+      <button onclick="decreaseVolume()">VOL-</button>
+      <div id="volumeDisplay">Volume: 50%</div>
+      <button onclick="increaseVolume()">VOL+</button>
     </div>
 
-    <div class="cell">
-        <div class="screen">
-            <!-- camera section -->
-
-            <div class="camera">
-                <div>
-                    <!-- <input type="file" capture="user" accept="image/*"> -->
-                </div>
-            </div>
-
-            <!-- End of camera section -->
-
-            <!-- Lock screen section  -->
-
-            <div id="LockscreenChance" class="innerscreen" onclick="LockscreenChance()">
-                <span class="top">
-                    <span id="network" class="network">Telkom</span>
-                    <span id="battery" class="battery">43%</span>
-                </span>
-                <span id="lock" class="lock">
-                    <h5>locked</h5>
-                </span>
-                <span id="Time" class="Time">
-                </span>
-                <span id="pin" class="pin">
-                    <h3>password</h3> <br>
-                    <span id="passwordAlert"></span>
-                    <input id="password" type="password"><br> <br>
-                    <button id="passwordEnter" class="passwordEnter" onclick="passwordEnter()">Enter</button>
-                    <h6>hint: any password</h6>
-                    <span id="Emergency" style="display: flex; justify-content: center;">
-                        <button style="background-color: green; color: white; border: none;">Emergency Call</button>
-                    </span>
-                </span>
-                <span id="Lock">
-                    <div>
-                        <img id="LockPhone" src="./phone.jpg" alt="">
-                    </div>
-                    
-                    <div>
-                        <input id="LockCamera" type="file" capture="user" accept="image/*" value="Camera">
-                    </div>
-                </span>
-            </div>
-
-            <!-- End of lock screen section -->
-
-            <!-- Start of Nav bar section -->
-
-            <div id="nav" class="nav">
-                <button id="circle" onclick="window.history.back()"></button>
-                <button id="main" onclick="mainBtn()"></button>
-                <button id="back" onclick="rightBtn()"></button>
-            </div>
-
-            <!-- End of nav bar section -->
-
-            <div class="landingPage">
-                <span class="top">
-                    <span id="Time1" class="landingPageTime"> </span>
-                    <span id="battery" class="battery">43%</span>
-                </span>
-                <span class="landingPageApps">
-                    <span> </span>
-                    <span> </span>
-                    <span id="lower" class="lower">
-                        <img class="LandApp" onclick="Contacts()" src="./Contacts.jpg" alt="">
-                        <img class="LandApp" onclick="Messages()"  src="./Messages.jpg" alt="">
-                        <img class="LandApp" onclick="Phone()"  src="./phone.jpg" alt="">
-                        <img class="LandApp" onclick="GoogleStore()"  src="./gooleStore.jpg" alt="">
-                        <img class="LandApp" onclick="Alarm()"  src="/alarm.jpg" alt="">
-                    </span>
-                </span>
-
-                <!-- Contacts section  -->
-
-                <span id="ContactsList" class="ContactsList">
-                    <span id="ContactsListFaceTop" class="ContactsListFaceTop">
-                        <span id="ContactsListFaceTopMenu" class="ContactsListFaceTopMenu">&#9776;</span>
-                        <span id="ContactsListFaceTopAdd" class="ContactsListFaceTopAdd">&plus;</span>
-                        <span id="ContactsListFaceTopOption" class="ContactsListFaceTopOption">option
-                        </span>
-                    </span>
-                    <div id="ContactsListFace" class="ContactsListFace">
-                        <span class="contact">
-                            <span id="ContactsPic" class="ContactsPic"></span>
-                            <span class="ContactsName">Asemahle "TEARN" Nkwali</span>
-                        </span>
-                    </div>
-                    <hr>
-                </span>
-
-                <!-- End if conatcts -->
-            </div>
-        </div>
+    <!-- Lock Screen -->
+    <div id="lockScreen" class="page active">
+      <div class="header">
+        Network: Telkom | Battery: <span class="batteryDisplay"></span>
+      </div>
+      <h2>Lock Screen</h2>
+      <p>Enter password to unlock:</p>
+      <input type="password" id="passwordInput" placeholder="Password" />
+      <br />
+      <button id="unlockBtn">Unlock</button>
     </div>
 
-    <div>
-        <div style="background-color: black; width: 20px; height: 50px; border-radius:10px; margin-top: 50px; margin-left: -15px; z-index: 0;"
-            class="volUp" onclick="alert('Volume button is coming soon')">
-        </div>
-        <div style="background-color: black; width: 20px; height: 50px; border-radius:10px; margin-top: 0px; margin-left: -15px; z-index: 0;"
-            class="volUp" onclick="alert('Volume button id soon')">
-        </div>
+    <!-- Home Screen -->
+    <div id="homeScreen" class="page">
+      <div class="header">
+        Network: Telkom | Battery: <span class="batteryDisplay"></span>
+      </div>
+      <h2>Home Screen</h2>
+      <p>Welcome to your simulated phone!</p>
+      <button id="openCameraBtn">Open Camera</button>
+      <div class="apps">
+        <!-- App Icons: Clicking these will trigger a toast notification -->
+        <div class="appIcon" onclick="showToast('Contacts App is not available')">Contacts</div>
+        <div class="appIcon" onclick="showToast('Messages App is not available')">Messages</div>
+        <div class="appIcon" onclick="showToast('Phone App is not available')">Phone</div>
+        <div class="appIcon" onclick="showToast('Settings App is not available')">Settings</div>
+      </div>
+    </div>
 
-            <div style="background-color: black; width: 20px; height: 40px; border-radius:10px; margin-top: 30px; margin-left: -15px; z-index: 0;"
-                class="OffBtn" onclick="alert('Off Button is coming soon')">
-            </div>
-        </div>
+    <!-- Camera Screen -->
+    <div id="cameraScreen" class="page">
+      <h2>Camera Screen</h2>
+      <video id="cameraPreview" autoplay playsinline></video>
+      <br />
+      <button id="stopCameraBtn">Stop Camera</button>
+    </div>
+  </div>
 
+  <!-- Navigation Buttons (outside phone container for easy access) -->
+  <nav>
+    <button onclick="navigateTo('lockScreen')">Lock Screen</button>
+    <button onclick="navigateTo('homeScreen')">Home Screen</button>
+    <button onclick="navigateTo('cameraScreen')">Camera</button>
+  </nav>
 
-        <script src="app.js"></script>
+  <!-- Toast Notification -->
+  <div id="toast"></div>
+
+  <script src="script.js"></script>
 </body>
-
 </html>
