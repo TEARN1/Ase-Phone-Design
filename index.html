@@ -1,99 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IPHONE 20 - Simulated Phone Interface</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-</head>
-<body>
-  <!-- IPHONE 20 Luxurious Frame -->
-  <div id="luxFrame">
-    <div id="luxRim"></div>
-    <div id="luxLogo"></div>
-    <div id="luxCamera">
-      <div class="luxLens"></div>
-      <div class="luxLens"></div>
-      <div class="luxLens"></div>
-    </div>
+<!-- Status bar goes at the very top of your app container or .front face of your 3D phone -->
+<div class="status-bar">
+  <span class="carrier">Telkom</span>
+  <span id="wifiBars">▂▄▆█</span>
+  <span id="clockDisplay"></span>
+  <span id="batteryDisplay"></span>
+</div>
+
+<!-- Home Screen Apps Grid -->
+<div class="apps">
+  <div class="appIcon" onclick="showToast('Phone is not available')">
+    <span class="app-emoji">📞</span>
+    <div>Phone</div>
   </div>
-  <!-- Phone Container -->
-  <div id="appContainer">
-    <!-- Dynamic Island Widget -->
-    <div id="dynamicIsland" class="dynamic-island">IPHONE 20</div>
-    <!-- Volume Controls (always visible overlay) -->
-    <div id="volumeControls">
-      <button onclick="decreaseVolume()">VOL-</button>
-      <div id="volumeDisplay">Volume: 50%</div>
-      <button onclick="increaseVolume()">VOL+</button>
-    </div>
-
-    <!-- Lock Screen -->
-    <div id="lockScreen" class="page active">
-      <div class="header">
-        Network: Telkom | Battery: <span class="batteryDisplay"></span>
-      </div>
-      <h2>Lock Screen</h2>
-      <label style="margin-bottom:10px;display:block">
-        <input type="checkbox" id="faceUnlockSwitch"/> Enable Face Unlock
-      </label>
-      <p>Enter password to unlock:</p>
-      <input type="password" id="passwordInput" placeholder="Password" />
-      <br />
-      <button id="unlockBtn">Unlock</button>
-      <div id="faceUnlockOverlay" class="face-unlock-overlay">
-        <div class="face-scan">
-          <div class="face-circle"></div>
-          <div class="scan-bar"></div>
-          <span class="face-text">Scanning Face...</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Home Screen -->
-    <div id="homeScreen" class="page">
-      <div class="header">
-        Network: Telkom | Battery: <span class="batteryDisplay"></span>
-      </div>
-      <h2>Home Screen</h2>
-      <button id="openCameraBtn">Open Camera</button>
-      <button id="voiceAssistantBtn" class="voice-btn">Hey Ase! <i class="fa fa-microphone"></i></button>
-      <div class="apps">
-        <div class="appIcon" onclick="showToast('Contacts App is not available')">Contacts</div>
-        <div class="appIcon" onclick="showToast('Messages App is not available')">Messages</div>
-        <div class="appIcon" onclick="showToast('Phone App is not available')">Phone</div>
-        <div class="appIcon" onclick="showToast('Settings App is not available')">Settings</div>
-      </div>
-    </div>
-
-    <!-- Camera Screen -->
-    <div id="cameraScreen" class="page">
-      <h2>Camera Screen</h2>
-      <video id="cameraPreview" autoplay playsinline></video>
-      <br />
-      <button id="stopCameraBtn">Stop Camera</button>
-    </div>
+  <div class="appIcon" onclick="showToast('Messages App is not available')">
+    <span class="app-emoji">💬</span>
+    <div>Messages</div>
   </div>
-
-  <!-- Navigation Buttons (outside phone container for easy access) -->
-  <nav>
-    <button onclick="navigateTo('lockScreen')">Lock Screen</button>
-    <button onclick="navigateTo('homeScreen')">Home Screen</button>
-    <button onclick="navigateTo('cameraScreen')">Camera</button>
-  </nav>
-
-  <!-- Hologram Notification Popup -->
-  <div id="hologramNotification" class="hologram-notification"></div>
-  <!-- Toast Notification -->
-  <div id="toast"></div>
-  <!-- Voice Assistant Overlay -->
-  <div id="voiceAssistantOverlay" class="va-overlay">
-    <div class="va-modal">
-      <span id="vaText">Listening...</span>
-      <button id="vaCloseBtn">Close</button>
-    </div>
+  <div class="appIcon" onclick="openTorch()">
+    <span class="app-emoji">🔦</span>
+    <div>Torch</div>
   </div>
-  <script src="app.js"></script>
-</body>
-</html>
+  <div class="appIcon" onclick="showToast('Gallery App is not available')">
+    <span class="app-emoji">🖼️</span>
+    <div>Gallery</div>
+  </div>
+  <div class="appIcon" onclick="showToast('Weather App is not available')">
+    <span class="app-emoji">🌦️</span>
+    <div>Weather</div>
+  </div>
+  <div class="appIcon" onclick="showToast('Calculator App is not available')">
+    <span class="app-emoji">🧮</span>
+    <div>Calculator</div>
+  </div>
+  <div class="appIcon" onclick="showToast('Notes App is not available')">
+    <span class="app-emoji">📝</span>
+    <div>Notes</div>
+  </div>
+  <div class="appIcon" onclick="showToast('Settings App is not available')">
+    <span class="app-emoji">⚙️</span>
+    <div>Settings</div>
+  </div>
+  <div class="appIcon" onclick="showToast('Music App is not available')">
+    <span class="app-emoji">🎵</span>
+    <div>Music</div>
+  </div>
+  <div class="appIcon" id="openCameraBtn">
+    <span class="app-emoji">📷</span>
+    <div>Camera</div>
+  </div>
+</div>
