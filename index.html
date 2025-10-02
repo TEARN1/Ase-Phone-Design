@@ -3,12 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulated Phone Interface</title>
+  <title>IPHONE 20 - Simulated Phone Interface</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
+  <!-- IPHONE 20 Luxurious Frame -->
+  <div id="luxFrame">
+    <div id="luxRim"></div>
+    <div id="luxLogo"></div>
+    <div id="luxCamera">
+      <div class="luxLens"></div>
+      <div class="luxLens"></div>
+      <div class="luxLens"></div>
+    </div>
+  </div>
   <!-- Phone Container -->
   <div id="appContainer">
+    <!-- Dynamic Island Widget -->
+    <div id="dynamicIsland" class="dynamic-island">IPHONE 20</div>
     <!-- Volume Controls (always visible overlay) -->
     <div id="volumeControls">
       <button onclick="decreaseVolume()">VOL-</button>
@@ -22,10 +35,20 @@
         Network: Telkom | Battery: <span class="batteryDisplay"></span>
       </div>
       <h2>Lock Screen</h2>
+      <label style="margin-bottom:10px;display:block">
+        <input type="checkbox" id="faceUnlockSwitch"/> Enable Face Unlock
+      </label>
       <p>Enter password to unlock:</p>
       <input type="password" id="passwordInput" placeholder="Password" />
       <br />
       <button id="unlockBtn">Unlock</button>
+      <div id="faceUnlockOverlay" class="face-unlock-overlay">
+        <div class="face-scan">
+          <div class="face-circle"></div>
+          <div class="scan-bar"></div>
+          <span class="face-text">Scanning Face...</span>
+        </div>
+      </div>
     </div>
 
     <!-- Home Screen -->
@@ -34,10 +57,9 @@
         Network: Telkom | Battery: <span class="batteryDisplay"></span>
       </div>
       <h2>Home Screen</h2>
-      <p>Welcome to your simulated phone!</p>
       <button id="openCameraBtn">Open Camera</button>
+      <button id="voiceAssistantBtn" class="voice-btn">Hey Ase! <i class="fa fa-microphone"></i></button>
       <div class="apps">
-        <!-- App Icons: Clicking these will trigger a toast notification -->
         <div class="appIcon" onclick="showToast('Contacts App is not available')">Contacts</div>
         <div class="appIcon" onclick="showToast('Messages App is not available')">Messages</div>
         <div class="appIcon" onclick="showToast('Phone App is not available')">Phone</div>
@@ -61,9 +83,17 @@
     <button onclick="navigateTo('cameraScreen')">Camera</button>
   </nav>
 
+  <!-- Hologram Notification Popup -->
+  <div id="hologramNotification" class="hologram-notification"></div>
   <!-- Toast Notification -->
   <div id="toast"></div>
-
-  <script src="script.js"></script>
+  <!-- Voice Assistant Overlay -->
+  <div id="voiceAssistantOverlay" class="va-overlay">
+    <div class="va-modal">
+      <span id="vaText">Listening...</span>
+      <button id="vaCloseBtn">Close</button>
+    </div>
+  </div>
+  <script src="app.js"></script>
 </body>
 </html>
