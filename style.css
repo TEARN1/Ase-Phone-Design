@@ -1,24 +1,125 @@
+:root {
+  --lux-gold: #F5E5C0;
+  --lux-midnight: #141416;
+  --lux-blue: #A9C1E8;
+  --lux-silver: #EAEAEA;
+  --lux-rose: #FFDFD7;
+  --lux-emerald: #33C49B;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, var(--lux-midnight) 0%, var(--lux-gold) 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#luxFrame {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 340px;
+  height: 660px;
+  transform: translate(-50%, -50%);
+  border-radius: 38px;
+  box-shadow: 0 0 60px 6px var(--lux-gold), 0 0 0 9px var(--lux-silver) inset;
+  background: linear-gradient(120deg, var(--lux-gold) 70%, var(--lux-midnight) 100%);
+  z-index: 1;
+}
+
 .status-bar {
-  background-color: #f7f7f7;
-  border-bottom: 1px solid #e1e1e1;
-  height: 20px;
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 18px 0 18px;
+  font-size: 1.09em;
+  color: #f7f7fa;
+  font-family: 'SF Pro Display', Arial, sans-serif;
+  height: 32px;
+  background: linear-gradient(180deg, #1a2230 75%, transparent 100%);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  user-select: none;
+  backdrop-filter: blur(2px);
+}
+.status-bar .carrier {
+  font-weight: 600;
+  margin-right: 10px;
+  letter-spacing: 0.2em;
+}
+#wifiBars {
+  font-size: 1.18em;
+  margin-right: 10px;
+}
+#clockDisplay {
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  font-variant-numeric: tabular-nums;
+}
+#batteryDisplay {
+  font-weight: bold;
+  color: #a9c1e8;
+  margin-left: 10px;
 }
 
-.apps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 10px;
+.apps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 18px;
+  margin: 44px 0 32px 0;
 }
 
-.apps-grid .app-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+.appIcon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #f7f7f7 60%, #e9e9ee 100%);
+  border-radius: 22px;
+  box-shadow: 0 3px 18px #0002, 0 0 0 3px #ddd inset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 2em;
+  font-weight: 500;
+  color: #1b1b23;
+  margin-bottom: 2px;
+  transition: box-shadow 0.2s, transform 0.12s;
+  position: relative;
+  user-select: none;
+  border: 1.5px solid #eee;
 }
-
-.apps-grid .app-icon:hover {
-  transform: scale(1.05);
-  transition: transform 0.2s ease;
+.appIcon:hover {
+  box-shadow: 0 6px 32px #80bfff99, 0 0 0 3px #bdefff inset;
+  transform: translateY(-3px) scale(1.05);
+}
+.app-emoji {
+  font-size: 1.5em;
+  margin-bottom: 2px;
+  filter: drop-shadow(0 2px 3px #fff7);
+}
+.appIcon div {
+  font-size: 0.55em;
+  color: #444;
+  font-weight: 600;
+  margin-top: 2px;
+  letter-spacing: 0.01em;
+}
+.appIcon::before {
+  content: "";
+  position: absolute;
+  top: 6px; left: 10px; right: 10px;
+  height: 16px;
+  border-radius: 18px 18px 12px 12px;
+  background: linear-gradient(180deg, #fff8 60%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
 }
